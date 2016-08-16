@@ -1,0 +1,7 @@
+# Project files, compiled assets
+/.gradle
+/.idea
+/build
+
+# Junk
+.DS_Store
