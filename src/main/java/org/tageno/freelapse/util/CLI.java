@@ -44,7 +44,7 @@ public final class CLI {
      *
      * @param $prop    The property to fetch.
      * @param $default The default value of the property if not provided.
-     * @return The vaule of the property, or the default value if not provided.
+     * @return The value of the property, or the default value if not provided.
      */
     public static String get(final String $prop, final String $default) {
         return _cli.getOptionValue($prop, $default);
