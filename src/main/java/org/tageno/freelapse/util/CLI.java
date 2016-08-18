@@ -11,6 +11,9 @@ public final class CLI {
      */
     private static CommandLine _cli;
 
+    /**
+     * The command line options for the web application.
+     */
     private static Options _options = new Options();
 
     static {
