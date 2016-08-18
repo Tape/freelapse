@@ -2,11 +2,21 @@ package org.tageno.freelapse.util;
 
 import org.apache.commons.cli.*;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
+
 public final class CLI {
     /**
      * Instance of the parsed command line instance.
      */
     private static CommandLine _cli;
+
+    private static Options _options = new Options();
+
+    static {
+        _options.addOption("u", true, "Username to the PostgreSQL database");
+        _options.addOption("p", true, "Password to the PostgreSQL database");
+    }
 
     /**
      * Parse the provided command line arguments.
@@ -15,16 +25,11 @@ public final class CLI {
      * @return True if the parse was successful, false if not.
      */
     public static boolean parse(final String[] $args) {
-        final Options options = new Options();
-        options.addOption("u", true, "Username to the PostgreSQL database");
-        options.addOption("p", true, "Password to the PostgreSQL database");
-
         try {
             final CommandLineParser parser = new DefaultParser();
-            _cli = parser.parse(options, $args);
+            _cli = parser.parse(_options, $args);
             return true;
         } catch (ParseException $e) {
-            new HelpFormatter().printHelp("freelapse", options);
             return false;
         }
     }
@@ -48,5 +53,20 @@ public final class CLI {
      */
     public static String get(final String $prop, final String $default) {
         return _cli.getOptionValue($prop, $default);
+    }
+
+    /**
+     * Print the usage of the command line interface to the given writer.
+     *
+     * @param $ps The stream to output to.
+     */
+    public static void printUsage(final PrintStream $ps) {
+        final HelpFormatter formatter = new HelpFormatter();
+        final PrintWriter pw = new PrintWriter($ps);
+
+        formatter.printUsage(pw, 80, "freelapse", _options);
+        formatter.printOptions(pw, 80, _options, 4, 3);
+
+        pw.flush();
     }
 }

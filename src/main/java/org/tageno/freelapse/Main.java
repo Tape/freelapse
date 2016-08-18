@@ -11,6 +11,7 @@ public class Main {
      */
     public static void main(final String[] $args) {
         if (!CLI.parse($args) || !Database.connect()) {
+            CLI.printUsage(System.out);
             System.exit(1);
         }
 
